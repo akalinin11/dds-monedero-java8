@@ -8,6 +8,7 @@ import dds.monedero.exceptions.SaldoMenorException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Cuenta {
 
@@ -57,8 +58,8 @@ public class Cuenta {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
-    if (getSaldo() - cuanto < 0) {
-      throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
+    if (saldo - cuanto < 0) { //NO usar getter cuando estas dentro de la clase
+      throw new SaldoMenorException("No puede sacar mas de " + saldo + " $");
     }
     double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
     double limite = 1000 - montoExtraidoHoy;
@@ -75,11 +76,12 @@ public class Cuenta {
   }
 
   public double getMontoExtraidoA(LocalDate fecha) {
-    return getMovimientos().stream()
-        .filter(movimiento -> !movimiento.isDeposito() && movimiento.getFecha().equals(fecha))
-        .mapToDouble(Movimiento::getMonto)
-        .sum();
-  }
+    return extraccionesDeUnaFecha(fecha).mapToDouble(Movimiento::getMonto).sum();
+  } // Code Smell: Long method
+
+  public Stream<Movimiento> extraccionesDeUnaFecha(LocalDate fecha){
+    return movimientos.stream().filter(movimiento -> movimiento.fueExtraido(fecha));
+  } // Code Smell: Duplicated code
 
   public List<Movimiento> getMovimientos() {
     return movimientos;
