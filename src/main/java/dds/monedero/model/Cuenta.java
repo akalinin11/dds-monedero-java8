@@ -58,16 +58,26 @@ public class Cuenta {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
-    if (saldo - cuanto < 0) { //NO usar getter cuando estas dentro de la clase
+    if (saldo < cuanto) { //NO usar getter cuando estas dentro de la clase
       throw new SaldoMenorException("No puede sacar mas de " + saldo + " $");
     }
+    //Code Smell: temporary field
+    /*
     double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
     double limite = 1000 - montoExtraidoHoy;
-    if (cuanto > limite) {
+    */
+    if (cuanto > limiteRestante()) {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
-          + " diarios, límite: " + limite);
+          + " diarios, límite: " + limiteRestante());
     }
+
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+  }
+
+  double limiteDiario = 1000;
+
+  public double limiteRestante(){
+    return limiteDiario - getMontoExtraidoA(LocalDate.now());
   }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
