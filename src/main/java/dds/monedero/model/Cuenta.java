@@ -44,6 +44,7 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
     this.concretarMovimiento(cuanto, true);
+
   }
 
 
@@ -103,12 +104,15 @@ public class Cuenta {
   }
 
   public void concretarMovimiento(double cuanto, boolean esDeposito) {
+    this.agregarMovimiento(LocalDate.now(), cuanto, esDeposito);
     if(esDeposito){
-      new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
-    }else {
-      new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+      saldo+= cuanto;
+    }else{
+      saldo-=cuanto;
     }
   }
+
+  
 }
 
 
