@@ -21,11 +21,11 @@ public class Cuenta {
     this.movimientos = movimientos;
   }
 
-  /*
+
   public Cuenta() {
     saldo = 0;
   }
-
+  /*
   public Cuenta(double montoInicial) {
     saldo = montoInicial;
   }
@@ -112,7 +112,9 @@ public class Cuenta {
     }
   }
 
-  
+  public Movimiento ultimoMovimiento(){
+    return movimientos.get(movimientos.size()-1);
+  }
 }
 
 
