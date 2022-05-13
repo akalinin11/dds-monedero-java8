@@ -26,7 +26,6 @@ public class MonederoTest {
     cuenta.poner(23);
     cuenta.sacar(21);
     cuenta.poner(52);
-
     assertEquals(cuenta.cantidadDepositosDeUnaFecha(LocalDate.now()), 3);
   }
 
@@ -36,14 +35,12 @@ public class MonederoTest {
     cuenta.sacar(23);
     cuenta.sacar(58);
     cuenta.poner(1000);
-
     assertEquals(cuenta.extraccionesDeUnaFecha(LocalDate.now()).count(), 2);
   }
 
   @Test
   void UnaCuentaEsCapazDeCargarUnMovimiento(){
     cuenta.concretarMovimiento(100, true);
-
     assertEquals(cuenta.ultimoMovimiento().getMonto(), 100);
     assertTrue(cuenta.ultimoMovimiento().isDeposito());
     assertEquals(cuenta.ultimoMovimiento().getFecha(), LocalDate.now());

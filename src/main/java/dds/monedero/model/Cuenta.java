@@ -113,7 +113,7 @@ public class Cuenta {
   }
 
   public Movimiento ultimoMovimiento(){
-    return movimientos.get(movimientos.size()-1);
+    return movimientos.get(movimientos.size() - 1);
   }
 }
 

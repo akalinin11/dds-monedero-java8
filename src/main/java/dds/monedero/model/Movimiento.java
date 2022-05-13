@@ -44,13 +44,13 @@ public class Movimiento {
     return !esDeposito;
   }
 
-  //ESTO DEBERIA OCURRIR EN CUENTA
+  //Esto debería estar en la clase cuente
+  /*
   public void agregateA(Cuenta cuenta) {
     cuenta.setSaldo(calcularValor(cuenta));
     cuenta.agregarMovimiento(fecha, monto, esDeposito);
   }
 
-  //ESTO DEBERIA OCURRIR EN CUENTA
   public double calcularValor(Cuenta cuenta) {
     if (esDeposito) {
       return cuenta.getSaldo() + getMonto();
@@ -58,4 +58,5 @@ public class Movimiento {
       return cuenta.getSaldo() - getMonto();
     }
   }
+  */
 }
