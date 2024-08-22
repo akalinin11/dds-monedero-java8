@@ -20,7 +20,10 @@ public class Cuenta {
     this.saldo = saldo;
     this.movimientos = movimientos;
   }
-
+  public Cuenta2(Double saldo, List<Movimiento> movimientos) {
+    this.saldo = saldo;
+    this.movimientos = movimientos;
+  }
 
   public Cuenta() {
     saldo = 0;
